@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import './App.scss';
 import Web3 from 'web3';
+import useTruncatedAddress from "./truncatedAddress"
 
 function App() {
 
@@ -18,6 +19,8 @@ function App() {
   const [showStakingInfoGorillaz, setShowStakingInfo] = useState(false);
   const [showStakingInfoSegundoToken, setShowStakingInfoSegundoToken] = useState(false);
   const [showInfoSegundoTokenSwap, setShowInfoSegundoToken] = useState(false);
+
+  const truncatedAddress = useTruncatedAddress(account);
 
   const handleApprovalAmountChange = (event) => {
     const amount = event.target.value;
@@ -56,16 +59,16 @@ function App() {
 
   // Dirección y ABI de tu contrato de staking de Gorillaz
   const stakingContractAddress = '0x52B0EADD4f3705E45fF9Df45Eb1591941eB5C645';
-  const stakingContractABI = useMemo(() => [{ "inputs": [], "name": "BaseAPY", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "Gorillaz", "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "PARTICIPANTS_APY_FACTOR", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "getApy", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }], "name": "getStakedAmount", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_factor", "type": "uint256" }], "name": "setParticipantsApyFactor", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "stake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "staked", "outputs": [{ "internalType": "uint32", "name": "start", "type": "uint32" }, { "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "bool", "name": "participants", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalParticipants", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "withdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" }], []); 
+  const stakingContractABI = useMemo(() => [{ "inputs": [], "name": "BaseAPY", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "Gorillaz", "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "PARTICIPANTS_APY_FACTOR", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "getApy", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }], "name": "getStakedAmount", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_factor", "type": "uint256" }], "name": "setParticipantsApyFactor", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "stake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "staked", "outputs": [{ "internalType": "uint32", "name": "start", "type": "uint32" }, { "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "bool", "name": "participants", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalParticipants", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "withdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" }], []);
 
 
   // Dirección y ABI de tu contrato pepaz(segunda moneda , no listada)
   const pepazContractAddress = '0x5B8698fbc27fA4db37a272442D79Cfb1c1aF8e94';
   const pepazContractABI = useMemo(() => [{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "owner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "spender", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "from", "type": "address" }, { "indexed": true, "internalType": "address", "name": "to", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "inputs": [], "name": "Gorillaz", "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "_owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "owner", "type": "address" }, { "internalType": "address", "name": "spender", "type": "address" }], "name": "allowance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "approve", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }], "name": "balanceOf", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "burn", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "decimals", "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "name", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "swapPepazForGorillaz", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "symbol", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalSupply", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "sender", "type": "address" }, { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }], []);
 
-   // Dirección y ABI de tu contrato de staking de Gorillaz
-   const stakingPepazContractAddress = '0x3fD0e4629272c081dba5683F579FD132C3551fCa';
-   const stakingPepazContractABI = useMemo(() => [{"inputs":[],"name":"BaseAPY","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"PARTICIPANTS_APY_FACTOR","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"Pepaz","outputs":[{"internalType":"contract IERC20","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"base_APYOne","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"base_APYThree","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"base_APYTwo","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getApy","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"getStakedAmount","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_apyOne","type":"uint256"}],"name":"setBaseApyOne","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_apyThree","type":"uint256"}],"name":"setBaseApyThree","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_apyTwo","type":"uint256"}],"name":"setBaseApyTwo","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_factor","type":"uint256"}],"name":"setParticipantsApyFactor","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"stake","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"staked","outputs":[{"internalType":"uint32","name":"start","type":"uint32"},{"internalType":"address","name":"account","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"},{"internalType":"bool","name":"participants","type":"bool"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalParticipants","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}], []); 
+  // Dirección y ABI de tu contrato de staking de Gorillaz
+  const stakingPepazContractAddress = '0x3fD0e4629272c081dba5683F579FD132C3551fCa';
+  const stakingPepazContractABI = useMemo(() => [{ "inputs": [], "name": "BaseAPY", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "PARTICIPANTS_APY_FACTOR", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "Pepaz", "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "base_APYOne", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "base_APYThree", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "base_APYTwo", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "getApy", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }], "name": "getStakedAmount", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_apyOne", "type": "uint256" }], "name": "setBaseApyOne", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_apyThree", "type": "uint256" }], "name": "setBaseApyThree", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_apyTwo", "type": "uint256" }], "name": "setBaseApyTwo", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_factor", "type": "uint256" }], "name": "setParticipantsApyFactor", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "stake", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "staked", "outputs": [{ "internalType": "uint32", "name": "start", "type": "uint32" }, { "internalType": "address", "name": "account", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "bool", "name": "participants", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalParticipants", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "withdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" }], []);
 
   // Gorillaz token
   const gorillazContract = useMemo(() => {
@@ -107,17 +110,17 @@ function App() {
       }
       const amountInWei = web3.utils.toWei(approvalAmount, 'ether');
       // Approve the transfer of tokens to the staking contract
-      await gorillazContract.methods.approve(stakingContractAddress, amountInWei).send({ from: account });
+      await gorillazContract.methods.approve(stakingContractAddress, amountInWei).send({ from: account, gas: '2000000', gasPrice: '20000000000'  });
 
       // Stake the approved amount in the staking contract
-      await stakingGorillaContract.methods.stake(amountInWei).send({ from: account });
+      await stakingGorillaContract.methods.stake(amountInWei).send({ from: account, gas: '2000000', gasPrice: '20000000000' });
 
       console.log('Approval and staking successful');
     } catch (error) {
       console.error('Error approving and staking:', error);
     }
   };
- 
+
   //SWAP PEPA TOKEN FOR GORILLAZ
   const swapPepazForGorillaz = async () => {
     try {
@@ -125,13 +128,13 @@ function App() {
         console.error('Web3 or contract instance not found');
         return;
       }
-  
+
       // Cantidad de tokens Pepaz a intercambiar
       const amountInWei = web3.utils.toWei(approvalAmount, 'ether');
-  
+
       // Llama a la función swapPepazForGorillaz del contrato PepaZ
-      await pepazContract.methods.swapPepazForGorillaz(account, amountInWei).send({ from: account });
-  
+      await pepazContract.methods.swapPepazForGorillaz(account, amountInWei).send({ from: account, gas: '2000000', gasPrice: '20000000000' });
+
       console.log('Swap successful');
     } catch (error) {
       console.error('Error swapping Pepaz for Gorillaz:', error);
@@ -185,8 +188,8 @@ function App() {
     // Every time web3 or gorillazContract changes, update the totalSupply
   }, [web3, pepazContract, account]);
 
-   //REALIZAR STAKE Y APPROVE Pepaz
-   const approveAndStakePepaz = async () => {
+  //REALIZAR STAKE Y APPROVE Litgorillaz
+  const approveAndStakePepaz = async () => {
     try {
       if (!web3 || !pepazContract || !pepazStakingContract) {
         console.error('Web3 or contract instance not found');
@@ -194,10 +197,10 @@ function App() {
       }
       const amountInWei = web3.utils.toWei(approvalAmount, 'ether');
       // Approve the transfer of tokens to the staking contract
-      await pepazContract.methods.approve(stakingPepazContractAddress, amountInWei).send({ from: account });
+      await pepazContract.methods.approve(stakingPepazContractAddress, amountInWei).send({ from: account, gas: '2000000', gasPrice: '20000000000' });
 
       // Stake the approved amount in the staking contract
-      await pepazStakingContract.methods.stake(amountInWei).send({ from: account });
+      await pepazStakingContract.methods.stake(amountInWei).send({ from: account, gas: '2000000', gasPrice: '20000000000' });
 
       console.log('Approval and staking successful');
     } catch (error) {
@@ -209,7 +212,7 @@ function App() {
   //Withdraw Gorillaz
   const withdraw = async () => {
     try {
-      await stakingGorillaContract.methods.withdraw().send({ from: account });
+      await stakingGorillaContract.methods.withdraw().send({ from: account, gas: '2000000', gasPrice: '20000000000' });
       console.log('Withdraw successful');
 
     } catch (error) {
@@ -217,10 +220,10 @@ function App() {
     }
   };
 
-  //Withdraw Pepaz
+  //Withdraw Litgorillaz
   const withdrawPepaz = async () => {
     try {
-      await pepazStakingContract.methods.withdraw().send({ from: account });
+      await pepazStakingContract.methods.withdraw().send({ from: account, gas: '2000000', gasPrice: '20000000000' });
       console.log('Withdraw successful');
 
     } catch (error) {
@@ -246,25 +249,25 @@ function App() {
     getAPY();
   }, [stakingGorillaContract, web3]);
 
-    //OBTENER AMOUNT EN STAKING DE LA PERSONA QUE SE LOGEO (GORILLAZ)
-    useEffect(() => {
-      const fetchStakedAmount = async () => {
-        try {
-          if (web3 && stakingGorillaContract && account) {
-  
-            const amountObject = await stakingGorillaContract.methods.staked(account).call();
-            const amount = amountObject.amount;
-            setStakedAmount(web3.utils.fromWei(amount, 'ether'));
-          }
-        } catch (error) {
-          console.error('Error getting staked amount:', error);
-        }
-      };
-  
-      fetchStakedAmount();
-    }, [account, stakingGorillaContract, web3]);
+  //OBTENER AMOUNT EN STAKING DE LA PERSONA QUE SE LOGEO (GORILLAZ)
+  useEffect(() => {
+    const fetchStakedAmount = async () => {
+      try {
+        if (web3 && stakingGorillaContract && account) {
 
-  //obtener cantidad que puso en stake PEPAZ TOKEN
+          const amountObject = await stakingGorillaContract.methods.staked(account).call();
+          const amount = amountObject.amount;
+          setStakedAmount(web3.utils.fromWei(amount, 'ether'));
+        }
+      } catch (error) {
+        console.error('Error getting staked amount:', error);
+      }
+    };
+
+    fetchStakedAmount();
+  }, [account, stakingGorillaContract, web3]);
+
+  //obtener cantidad que puso en stake Litgorillaz TOKEN
   useEffect(() => {
     const StakedPepaz = async () => {
       try {
@@ -290,31 +293,33 @@ function App() {
   //Mostrar stake gorillaz y withdraw  
   const toggleStakingInfo = () => {
     setShowStakingInfo(!showStakingInfoGorillaz);  //STAKING GORILLAZ  
-    setShowStakingInfoSegundoToken(false); // Reset the state for the other token (STAKING PEPAZ)
-    setShowInfoSegundoToken(false) //(TOKEN PEPAZ)
+    setShowStakingInfoSegundoToken(false); // Reset the state for the other token (STAKING Litgorillaz)
+    setShowInfoSegundoToken(false) //(TOKEN Litgorillaz)
   };
 
   //Mostrar stake SegundoToken y withdraw  
   const toggleStakingInfoSegundoToken = () => {
-    setShowStakingInfoSegundoToken(!showStakingInfoSegundoToken); //(STAKING PEPAZ)
+    setShowStakingInfoSegundoToken(!showStakingInfoSegundoToken); //(STAKING Litgorillaz)
     setShowStakingInfo(false) //STAKING GORILLAZ
-    setShowInfoSegundoToken(false) //(TOKEN PEPAZ)
+    setShowInfoSegundoToken(false) //(TOKEN Litgorillaz)
   };
 
   //Mostrar Swap 
   const toggleInfoSegundoToken = () => {
-    setShowInfoSegundoToken(!showInfoSegundoTokenSwap); //(TOKEN PEPAZ)
+    setShowInfoSegundoToken(!showInfoSegundoTokenSwap); //(TOKEN Litgorillaz)
     setShowStakingInfo(false) //STAKING GORILLAZ
-    setShowStakingInfoSegundoToken(false); //(STAKING PEPAZ)
+    setShowStakingInfoSegundoToken(false); //(STAKING Litgorillaz)
 
   };
+
+
 
   return (
     <div className="App">
       <header className="App-header">
         {/* Botón de conexión/desconexión */}
         <nav className="navbar">
-          <ul>
+          <ul className='navbar_parent'>
             <li>
               {isLoggedIn ? (
                 <button onClick={handleWalletConnection}>Disconnect</button>
@@ -335,9 +340,9 @@ function App() {
             <li>
               {showStakingInfoSegundoToken ? (
 
-                <button onClick={withdrawPepaz}>Withdraw Pepaz</button>
+                <button onClick={withdrawPepaz}>Withdraw Litgorillaz</button>
               ) : (
-                <button onClick={toggleStakingInfoSegundoToken}>Stake Pepaz</button>
+                <button onClick={toggleStakingInfoSegundoToken}>Stake Litgorillaz</button>
               )}
 
             </li>
@@ -353,9 +358,9 @@ function App() {
           </ul>
 
         </nav>
-
       </header>
 
+      <main>
       {showStakingInfoGorillaz && account && (
         <div className='stakingInfoGorillaz'>
           <h1>GRZ Staking</h1>
@@ -375,7 +380,7 @@ function App() {
 
           <div className="reward-info">
             <p> Account</p>
-            <p> {account} </p>
+            <p> {truncatedAddress} </p>
           </div>
 
           <div className="reward-info">
@@ -403,101 +408,103 @@ function App() {
         </div>
       )}
 
-      {showStakingInfoSegundoToken && account && (
-        <div className='stakingInfoGorillaz'>
-          <h1>Pepaz Staking</h1>
-          <div className="reward-info">
-            <input
-              className="inputStakeApprove"
-              type="number"
-              placeholder="Amount"
-              value={approvalAmount}
-              onChange={handleApprovalAmountChange}
-            />
-            <button onClick={approveAndStakePepaz}>Approve and Stake</button>
+
+        {showStakingInfoSegundoToken && account && (
+          <div className='stakingInfoGorillaz'>
+            <h1>Litgorillaz Staking</h1>
+            <div className="reward-info">
+              <input
+                className="inputStakeApprove"
+                type="number"
+                placeholder="Amount"
+                value={approvalAmount}
+                onChange={handleApprovalAmountChange}
+              />
+              <button onClick={approveAndStakePepaz}>Approve and Stake</button>
+            </div>
+
+            <p className='precaution'>Note The amount entered must first be approved to then be able to stake</p>
+
+            <div className="reward-info">
+              <p>Rewards for staking</p>
+              <p>{apy}</p>
+            </div>
+
+            <p className='precaution'>Amount + (Amount * {apy} / 100) formula to calculate the reward ({apy} is the apy currently)</p>
+
+            <div className="reward-info">
+              <p> Account</p>
+              <p> {truncatedAddress} </p>
+            </div>
+
+            <div className="reward-info">
+              <p>Your Litgorillaz Balance </p>
+              <p>{accountBalancePepaz}</p>
+            </div>
+
+            <div className="reward-info">
+              <p>Tokens in staking  </p>
+              <p>{stakedAmountPepaz} </p>
+            </div>
+
+            <div className="reward-info">
+              <p>Rewards for staking 1 month</p>
+              <p>5% APY</p>
+            </div>
+
+            <div className="reward-info">
+              <p>Rewards for staking 2 month</p>
+              <p>10% APY</p>
+            </div>
+
+            <div className="reward-info">
+              <p>Rewards for staking 3 month</p>
+              <p>20% APY</p>
+            </div>
+
+            <p className='precaution'>Note: If the time entered is less than those stated and you withdraw, the initial amount will be returned. In addition, the maximum is 3 months of staking. These APY values can be modified.</p>
+
           </div>
 
-          <p className='precaution'>Note The amount entered must first be approved to then be able to stake</p>
+        )}
 
-          <div className="reward-info">
-            <p>Rewards for staking</p>
-            <p>{apy}</p>
+        {showInfoSegundoTokenSwap && account && (
+          <div className='stakingInfoGorillaz'>
+            <h1>SegundoToken Swap</h1>
+            <div className="reward-info">
+              <input
+                className="inputStakeApprove"
+                type="number"
+                placeholder="Amount"
+                value={approvalAmount}
+                onChange={handleApprovalAmountChange}
+              />
+              <button onClick={swapPepazForGorillaz}>Swap</button>
+            </div>
+
+            <p className='precaution'>The Tax will initially be 0%, but will increase when necessary (uint256 taxAmount = (amount * _taxPercentage) / 100;)</p>
+
+            <div className="reward-info">
+              <p> Account</p>
+              <p> {truncatedAddress} </p>
+            </div>
+
+
+            <div className="reward-info">
+              <p>Your Litgorillaz Balance </p>
+              <p>{accountBalancePepaz}</p>
+            </div>
+
+            <div className="reward-info">
+              <p>TotalSupply  </p>
+              <p>{totalSupplyPepaz} </p>
+            </div>
+
           </div>
 
-          <p className='precaution'>Amount + (Amount * {apy} / 100) formula to calculate the reward ({apy} is the apy currently)</p>
+        )}
 
-          <div className="reward-info">
-            <p> Account</p>
-            <p> {account} </p>
-          </div>
-
-          <div className="reward-info">
-            <p>Your Pepaz Balance </p>
-            <p>{accountBalancePepaz}</p>
-          </div>
-
-          <div className="reward-info">
-            <p>Tokens in staking  </p>
-            <p>{stakedAmountPepaz} </p>
-          </div>
-
-          <div className="reward-info">
-            <p>Rewards for staking 1 month</p>
-            <p>5% APY</p>
-          </div>
-
-          <div className="reward-info">
-            <p>Rewards for staking 2 month</p>
-            <p>10% APY</p>
-          </div>
-
-          <div className="reward-info">
-            <p>Rewards for staking 3 month</p>
-            <p>20% APY</p>
-          </div>
-
-          <p className='precaution'>Note: If the time entered is less than those stated and you withdraw, the initial amount will be returned. In addition, the maximum is 3 months of staking. These APY values can be modified.</p>
-
-        </div>
-
-      )}
-
-      {showInfoSegundoTokenSwap && account && (
-        <div className='stakingInfoGorillaz'>
-          <h1>SegundoToken Swap</h1>
-          <div className="reward-info">
-            <input
-              className="inputStakeApprove"
-              type="number"
-              placeholder="Amount"
-              value={approvalAmount}
-              onChange={handleApprovalAmountChange}
-            />
-            <button onClick={swapPepazForGorillaz}>Swap</button>
-          </div>
-
-          <p className='precaution'>The Tax will initially be 0%, but will increase when necessary (uint256 taxAmount = (amount * _taxPercentage) / 100;)</p>
-
-          <div className="reward-info">
-            <p> Account</p>
-            <p> {account} </p>
-          </div>
-
-
-          <div className="reward-info">
-            <p>Your Pepaz Balance </p>
-            <p>{accountBalancePepaz}</p>
-          </div>
-       
-          <div className="reward-info">
-            <p>TotalSupply  </p>
-            <p>{totalSupplyPepaz} </p>
-          </div>
-
-        </div>
-
-      )}
-
+      </main>
     </div>
   );
 }

@@ -6,31 +6,28 @@
 h1{
   color: white;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .App {
   background: linear-gradient(to bottom, #000000, #490589);
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
 }
 
 .App-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-
-  height: 200px;
+  height: 100px;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
 
 nav {
   padding: 10px;
 }
+
 
 nav ul {
   list-style: none;
@@ -39,10 +36,7 @@ nav ul {
   align-items: center;
   padding: 0;
   margin: 0;
-}
-
-nav ul li {
-  margin-right: 10px;
+  flex-wrap: wrap;
 }
 
 nav button {
@@ -57,24 +51,35 @@ nav button {
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 8px;
+ 
 }
 
+
 nav button:hover {
+  transition: .12s ease-in-out;
   background-color: #1c0031;
 }
 
+main{
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 .stakingInfoGorillaz {
-  position: absolute; /* Cambiar posición a absolute */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  margin: 0 auto;
   background-color: #333;
   opacity: 0.9;
   padding: 20px;
   border-radius: 10px;
-  height: 50%;
+  height: 100%;
   width: 60%; 
+  max-width: 635px;
   color: white;
+  margin-top: 15px;
 
   
   .precaution{
@@ -85,10 +90,12 @@ nav button:hover {
 
   .reward-info {
     display: flex;
-    justify-content: space-around;
     margin-bottom: 10px;
     margin-top: 15px;
+    width: 100%;
 
+  
+}
     p:first-child {
       margin-right: auto; // Este margen empujará el primer párrafo al extremo izquierdo
     }
@@ -103,11 +110,14 @@ nav button:hover {
 
     button:last-child {
       margin-left: auto; // Este margen empujará el último párrafo al extremo derecho
+      background: linear-gradient(to bottom, #290b35, #490589);
     }
 
     .inputStakeApprove {
       padding: 10px 10px;
-      width: 600px; // Define el ancho del input
+      width: 90%;
+      max-width: 400px;
+      min-width: 200px;
       border: 1px solid #ccc; // Añade un borde para mejorar la apariencia
       border-radius: 5px; // Redondea las esquinas
       font-size: 16px; // Ajusta el tamaño de la fuente
@@ -132,14 +142,54 @@ nav button:hover {
     background-color: #b0b0b074;
     border: none;
     color: white;
-    padding: 10px 20px;
+    padding: 5px 10px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 0 0 0 15px;
     cursor: pointer;
     border-radius: 4px;
+    width: 100%;
+    max-width: 150px;
    }
   }
-}
+
+  @media (max-width:600px) {
+    .reward-info{
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .reward-info button:last-child{ 
+      margin: 0;
+      margin-top: 15px;
+    }
+
+  }
+
+  button:last-child:hover{
+    transition: 0.1s ease-in-out;
+    background-color: #1c0031;
+  }
+
+  @media (max-width:430px) {
+    .stakingInfoGorillaz{
+      margin-top: 20px;
+    }
+    nav button{
+      padding: 10px 10px;
+      
+    }
+  }
+
+  @media (max-width:360px) {
+    .stakingInfoGorillaz{
+      margin-top: 30px;
+    }
+    nav button{
+      padding: 5px 10px;
+      
+    }
+  }
+
