@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import './App.scss';
 import Web3 from 'web3';
 import useTruncatedAddress from "./truncatedAddress"
+import { PieChart } from '@mui/x-charts';
 
 function App() {
 
@@ -16,9 +17,11 @@ function App() {
   const [stakedAmount, setStakedAmount] = useState(''); //gorillaz
   const [stakedAmountPepaz, setStakedAmountPepaz] = useState(''); //pepaz
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showStakingInfoGorillaz, setShowStakingInfo] = useState(true);
+  const [showStakingInfoGorillaz, setShowStakingInfo] = useState(false);
   const [showStakingInfoSegundoToken, setShowStakingInfoSegundoToken] = useState(false);
   const [showInfoSegundoTokenSwap, setShowInfoSegundoToken] = useState(false);
+  const [showTokenomics, setShowTokenomics] = useState(true);
+
 
   const truncatedAddress = useTruncatedAddress(account);
 
@@ -299,6 +302,7 @@ function App() {
     setShowStakingInfo(!showStakingInfoGorillaz);  //STAKING GORILLAZ  
     setShowStakingInfoSegundoToken(false); // Reset the state for the other token (STAKING Litgorillaz)
     setShowInfoSegundoToken(false) //(TOKEN Litgorillaz)
+    setShowTokenomics(false); //tokenomics
   };
 
   //Mostrar stake SegundoToken y withdraw  
@@ -306,6 +310,7 @@ function App() {
     setShowStakingInfoSegundoToken(!showStakingInfoSegundoToken); //(STAKING Litgorillaz)
     setShowStakingInfo(false) //STAKING GORILLAZ
     setShowInfoSegundoToken(false) //(TOKEN Litgorillaz)
+    setShowTokenomics(false); //tokenomics
   };
 
   //Mostrar Swap 
@@ -313,8 +318,18 @@ function App() {
     setShowInfoSegundoToken(!showInfoSegundoTokenSwap); //(TOKEN Litgorillaz)
     setShowStakingInfo(false) //STAKING GORILLAZ
     setShowStakingInfoSegundoToken(false); //(STAKING Litgorillaz)
+    setShowTokenomics(false); //tokenomics
 
   };
+
+    //Mostrar Tokenomics
+    const toggleTokenomics = () => {
+      setShowTokenomics(!showTokenomics); //tokenomics
+      setShowInfoSegundoToken(false); //(TOKEN Litgorillaz)
+      setShowStakingInfo(false) //STAKING GORILLAZ
+      setShowStakingInfoSegundoToken(false); //(STAKING Litgorillaz)
+  
+    };
 
 
 
@@ -359,13 +374,56 @@ function App() {
               <button onClick={toggleInfoSegundoToken} target="_blank">Swap</button>
             </li>
 
+            <li>
+              {showTokenomics ? (
+
+                <button>Tokenomics</button>
+              ) : (
+                <button onClick={toggleTokenomics}>Tokenomics</button>
+              )}
+
+            </li>
+
           </ul>
 
         </nav>
       </header>
 
+           
+
       <main>
-      {showStakingInfoGorillaz &&  (
+      {showTokenomics && 
+      <div className='tokenomics'>
+        <div className='tokenomics-text'>
+        <h2>Gorillaz <span>(GRZ)</span> TOKENOMICS EXPLAINED</h2>
+        <h3>Total TokenSupply: 10.000.000  <span>(GRZ)</span> </h3>
+        <p>Team (500.000)</p>
+        <p>Marketing (1.000.000)</p>
+        <p>Development (1.000.000)</p>
+        <p>Reward (1.000.000)</p>
+        <p>Supply (6.500.000)</p>
+        </div>
+       
+      <PieChart
+      series={[
+        {
+          outerRadius:80,
+          data: [          
+            { id: 0, value: 5, color: '#48C3FC', label: 'Team 5%' },
+            { id: 1, value: 10, color: '#01CADC', label: 'Marketing 10%' },
+            { id: 2, value: 10, color: '#65A6FA', label: 'Development 10%' },
+            { id: 3, value: 10, color: '#7E80E7', label: 'Reward 10%' },
+            { id: 4, value: 65, color: '#9B58CC', label: 'Supply 65%' },
+          ],
+        },
+      ]}
+      width={450}
+      height={200}
+    />
+    </div>
+      }
+
+      {showStakingInfoGorillaz && account &&  (
         <div className='stakingInfoGorillaz'>
           <h1>GRZ Staking</h1>
           <div className="reward-info">
