@@ -16,7 +16,7 @@ function App() {
   const [stakedAmount, setStakedAmount] = useState(''); //gorillaz
   const [stakedAmountPepaz, setStakedAmountPepaz] = useState(''); //pepaz
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showStakingInfoGorillaz, setShowStakingInfo] = useState(false);
+  const [showStakingInfoGorillaz, setShowStakingInfo] = useState(true);
   const [showStakingInfoSegundoToken, setShowStakingInfoSegundoToken] = useState(false);
   const [showInfoSegundoTokenSwap, setShowInfoSegundoToken] = useState(false);
 
@@ -52,7 +52,7 @@ function App() {
       console.error('Error connecting/disconnecting MetaMask:', error);
     }
   };
-
+ 
   // Dirección y ABI de tu contrato Gorillaz
   const gorillazContractAddress = '0x23f01d5440eA9465D807Df66b3a44d19f3Ce3147';
   const gorillazContractABI = useMemo(() => [{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "owner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "spender", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "from", "type": "address" }, { "indexed": true, "internalType": "address", "name": "to", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "inputs": [], "name": "_owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "owner", "type": "address" }, { "internalType": "address", "name": "spender", "type": "address" }], "name": "allowance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "approve", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }], "name": "balanceOf", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "burn", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "decimals", "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "name", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "symbol", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalSupply", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "sender", "type": "address" }, { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }], []); // Inserta el ABI de tu contrato Gorillaz
@@ -109,11 +109,12 @@ function App() {
         return;
       }
       const amountInWei = web3.utils.toWei(approvalAmount, 'ether');
+     
       // Approve the transfer of tokens to the staking contract
-      await gorillazContract.methods.approve(stakingContractAddress, amountInWei).send({ from: account, gas: '2000000', gasPrice: '20000000000'  });
+      await gorillazContract.methods.approve(stakingContractAddress, amountInWei).send({ from: account, gas: '2000000' });
 
       // Stake the approved amount in the staking contract
-      await stakingGorillaContract.methods.stake(amountInWei).send({ from: account, gas: '2000000', gasPrice: '20000000000' });
+      await stakingGorillaContract.methods.stake(amountInWei).send({ from: account,gas: '2000000'});
 
       console.log('Approval and staking successful');
     } catch (error) {
@@ -133,7 +134,7 @@ function App() {
       const amountInWei = web3.utils.toWei(approvalAmount, 'ether');
 
       // Llama a la función swapPepazForGorillaz del contrato PepaZ
-      await pepazContract.methods.swapPepazForGorillaz(account, amountInWei).send({ from: account, gas: '2000000', gasPrice: '20000000000' });
+      await pepazContract.methods.swapPepazForGorillaz(account, amountInWei).send({ from: account, gas: '2000000'});
 
       console.log('Swap successful');
     } catch (error) {
@@ -196,11 +197,12 @@ function App() {
         return;
       }
       const amountInWei = web3.utils.toWei(approvalAmount, 'ether');
+
       // Approve the transfer of tokens to the staking contract
-      await pepazContract.methods.approve(stakingPepazContractAddress, amountInWei).send({ from: account, gas: '2000000', gasPrice: '20000000000' });
+      await pepazContract.methods.approve(stakingPepazContractAddress, amountInWei).send({ from: account, gas: '2000000'});
 
       // Stake the approved amount in the staking contract
-      await pepazStakingContract.methods.stake(amountInWei).send({ from: account, gas: '2000000', gasPrice: '20000000000' });
+      await pepazStakingContract.methods.stake(amountInWei).send({ from: account, gas: '2000000'});
 
       console.log('Approval and staking successful');
     } catch (error) {
@@ -212,7 +214,8 @@ function App() {
   //Withdraw Gorillaz
   const withdraw = async () => {
     try {
-      await stakingGorillaContract.methods.withdraw().send({ from: account, gas: '2000000', gasPrice: '20000000000' });
+
+      await stakingGorillaContract.methods.withdraw().send({ from: account, gas: '2000000'});
       console.log('Withdraw successful');
 
     } catch (error) {
@@ -223,7 +226,8 @@ function App() {
   //Withdraw Litgorillaz
   const withdrawPepaz = async () => {
     try {
-      await pepazStakingContract.methods.withdraw().send({ from: account, gas: '2000000', gasPrice: '20000000000' });
+
+      await pepazStakingContract.methods.withdraw().send({ from: account, gas: '2000000'});
       console.log('Withdraw successful');
 
     } catch (error) {
@@ -361,7 +365,7 @@ function App() {
       </header>
 
       <main>
-      {showStakingInfoGorillaz && account && (
+      {showStakingInfoGorillaz &&  (
         <div className='stakingInfoGorillaz'>
           <h1>GRZ Staking</h1>
           <div className="reward-info">
@@ -400,7 +404,7 @@ function App() {
 
           <div className="reward-info">
             <p>Apy  </p>
-            <p>{apy} </p>
+            <p>{apy}% </p>
           </div>
 
           <p className='precaution'>Note: You must wait 10 days once the stake has been made to be able to withdraw your amount + amount with the reward, otherwise you can withdraw but the initial amount you deposited will be returned without any type of reward.</p>
@@ -427,7 +431,7 @@ function App() {
 
             <div className="reward-info">
               <p>Rewards for staking</p>
-              <p>{apy}</p>
+              <p>{apy}%</p>
             </div>
 
             <p className='precaution'>Amount + (Amount * {apy} / 100) formula to calculate the reward ({apy} is the apy currently)</p>
