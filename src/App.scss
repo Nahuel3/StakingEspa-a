@@ -261,10 +261,23 @@ main{
       overflow: hidden;
   }
 
+  .css-15x5qbl{
+    width: 350px !important;
+   }
+
 }
 
 @media (max-width:390px) {
-  .css-1ct1ojt-MuiResponsiveChart-container{
+   .css-1ct1ojt-MuiResponsiveChart-container{
+    width: 300px !important;
+   }
+    main .tokenomics svg{    
+      width: 300px !important;
+      height: 200px !important;  
+      overflow: hidden;
+  }
+
+  .css-15x5qbl{
     width: 300px !important;
    }
     main .tokenomics svg{    
