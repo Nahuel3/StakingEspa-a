@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import './App.scss';
 import Web3 from 'web3';
 import useTruncatedAddress from "./truncatedAddress"
+import imgGorillazToken from "./imgToken/gorillaz.png"
 import { PieChart } from '@mui/x-charts';
 
 function App() {
@@ -55,7 +56,7 @@ function App() {
       console.error('Error connecting/disconnecting MetaMask:', error);
     }
   };
- 
+
   // Dirección y ABI de tu contrato Gorillaz
   const gorillazContractAddress = '0x23f01d5440eA9465D807Df66b3a44d19f3Ce3147';
   const gorillazContractABI = useMemo(() => [{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "owner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "spender", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "Approval", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "from", "type": "address" }, { "indexed": true, "internalType": "address", "name": "to", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "inputs": [], "name": "_owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "owner", "type": "address" }, { "internalType": "address", "name": "spender", "type": "address" }], "name": "allowance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "approve", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "account", "type": "address" }], "name": "balanceOf", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "burn", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "decimals", "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "name", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "symbol", "outputs": [{ "internalType": "string", "name": "", "type": "string" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalSupply", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "sender", "type": "address" }, { "internalType": "address", "name": "recipient", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }], []); // Inserta el ABI de tu contrato Gorillaz
@@ -112,12 +113,12 @@ function App() {
         return;
       }
       const amountInWei = web3.utils.toWei(approvalAmount, 'ether');
-     
+
       // Approve the transfer of tokens to the staking contract
       await gorillazContract.methods.approve(stakingContractAddress, amountInWei).send({ from: account, gas: '2000000' });
 
       // Stake the approved amount in the staking contract
-      await stakingGorillaContract.methods.stake(amountInWei).send({ from: account,gas: '2000000'});
+      await stakingGorillaContract.methods.stake(amountInWei).send({ from: account, gas: '2000000' });
 
       console.log('Approval and staking successful');
     } catch (error) {
@@ -137,7 +138,7 @@ function App() {
       const amountInWei = web3.utils.toWei(approvalAmount, 'ether');
 
       // Llama a la función swapPepazForGorillaz del contrato PepaZ
-      await pepazContract.methods.swapPepazForGorillaz(account, amountInWei).send({ from: account, gas: '2000000'});
+      await pepazContract.methods.swapPepazForGorillaz(account, amountInWei).send({ from: account, gas: '2000000' });
 
       console.log('Swap successful');
     } catch (error) {
@@ -202,10 +203,10 @@ function App() {
       const amountInWei = web3.utils.toWei(approvalAmount, 'ether');
 
       // Approve the transfer of tokens to the staking contract
-      await pepazContract.methods.approve(stakingPepazContractAddress, amountInWei).send({ from: account, gas: '2000000'});
+      await pepazContract.methods.approve(stakingPepazContractAddress, amountInWei).send({ from: account, gas: '2000000' });
 
       // Stake the approved amount in the staking contract
-      await pepazStakingContract.methods.stake(amountInWei).send({ from: account, gas: '2000000'});
+      await pepazStakingContract.methods.stake(amountInWei).send({ from: account, gas: '2000000' });
 
       console.log('Approval and staking successful');
     } catch (error) {
@@ -218,7 +219,7 @@ function App() {
   const withdraw = async () => {
     try {
 
-      await stakingGorillaContract.methods.withdraw().send({ from: account, gas: '2000000'});
+      await stakingGorillaContract.methods.withdraw().send({ from: account, gas: '2000000' });
       console.log('Withdraw successful');
 
     } catch (error) {
@@ -230,7 +231,7 @@ function App() {
   const withdrawPepaz = async () => {
     try {
 
-      await pepazStakingContract.methods.withdraw().send({ from: account, gas: '2000000'});
+      await pepazStakingContract.methods.withdraw().send({ from: account, gas: '2000000' });
       console.log('Withdraw successful');
 
     } catch (error) {
@@ -322,14 +323,14 @@ function App() {
 
   };
 
-    //Mostrar Tokenomics
-    const toggleTokenomics = () => {
-      setShowTokenomics(!showTokenomics); //tokenomics
-      setShowInfoSegundoToken(false); //(TOKEN Litgorillaz)
-      setShowStakingInfo(false) //STAKING GORILLAZ
-      setShowStakingInfoSegundoToken(false); //(STAKING Litgorillaz)
-  
-    };
+  //Mostrar Tokenomics
+  const toggleTokenomics = () => {
+    setShowTokenomics(!showTokenomics); //tokenomics
+    setShowInfoSegundoToken(false); //(TOKEN Litgorillaz)
+    setShowStakingInfo(false) //STAKING GORILLAZ
+    setShowStakingInfoSegundoToken(false); //(STAKING Litgorillaz)
+
+  };
 
 
 
@@ -377,7 +378,7 @@ function App() {
             <li>
               {showTokenomics ? (
 
-                <button>Tokenomics</button>
+                <button>Tokenomics And Roadmap</button>
               ) : (
                 <button onClick={toggleTokenomics}>Tokenomics</button>
               )}
@@ -389,86 +390,151 @@ function App() {
         </nav>
       </header>
 
-           
+      {showTokenomics &&
+        <div className="blue-rectanglesPadre">
+          <div className="blue-rectangle slide-from-right">
+            <img src={imgGorillazToken} alt="Descripción de la imagen" className="imagen-pequeña" />
+            <h4>Phase 1</h4>
 
-      <main>
-      {showTokenomics && 
-      <div className='tokenomics'>
-        <div className='tokenomics-text'>
-        <h2>Gorillaz <span>(GRZ)</span> TOKENOMICS EXPLAINED</h2>
-        <h3>Total TokenSupply: 10.000.000  <span>(GRZ)</span> </h3>
-        <p>Team (500.000)</p>
-        <p>Marketing (1.000.000)</p>
-        <p>Development (1.000.000)</p>
-        <p>Reward (1.000.000)</p>
-        <p>Supply (6.500.000)</p>
+            <div className='contenedorRoadmapText'>
+
+              <p>
+                -List on Uniswap
+              </p>
+
+              <p> - Youtube Marketing</p>
+
+              <p> -Ejemplo </p>
+
+              <p> - Ejemplo </p>
+
+            </div>
+
+          </div>
+
+          <div className="blue-rectangle slide-from-right">
+
+            <img src={imgGorillazToken} alt="Descripción de la imagen" className="imagen-pequeña" />
+            <h4>Phase 2 </h4>
+
+            <div className='contenedorRoadmapText'>
+              <p>
+                -List on Uniswap
+              </p>
+
+              <p> - Youtube Marketing</p>
+
+              <p> -Ejemplo </p>
+
+              <p> - Ejemplo </p>
+            </div>
+
+          </div>
+
+          <div className="blue-rectangle slide-from-right">
+            
+            <img src={imgGorillazToken} alt="Descripción de la imagen" className="imagen-pequeña" />
+            <h4>Phase 3</h4>
+
+              <div className='contenedorRoadmapText'>
+              <p>
+                -List on Uniswap   
+              </p>
+
+              <p> - Youtube Marketing</p> 
+
+              <p> -Ejemplo </p>
+
+              <p> - Ejemplo </p>
+            </div>
+
+          </div>
+
         </div>
-       
-      <PieChart
-      series={[
-        {
-          outerRadius:80,
-          data: [          
-            { id: 0, value: 5, color: '#48C3FC', label: 'Team 5%' },
-            { id: 1, value: 10, color: '#01CADC', label: 'Marketing 10%' },
-            { id: 2, value: 10, color: '#65A6FA', label: 'Development 10%' },
-            { id: 3, value: 10, color: '#7E80E7', label: 'Reward 10%' },
-            { id: 4, value: 65, color: '#9B58CC', label: 'Supply 65%' },
-          ],
-        },
-      ]}
-      width={450}
-      height={200}
-    />
-    </div>
+
       }
 
-      {showStakingInfoGorillaz && account &&  (
-        <div className='stakingInfoGorillaz'>
-          <h1>GRZ Staking</h1>
-          <div className="reward-info">
-            <input
-              className="inputStakeApprove"
-              type="number"
-              placeholder="Amount"
-              value={approvalAmount}
-              onChange={handleApprovalAmountChange}
+      <main>
+        {showTokenomics &&
+
+
+          <div className='tokenomics'>
+            <div className='tokenomics-text'>
+              <h2>Gorillaz <span>(GRZ)</span> TOKENOMICS EXPLAINED</h2>
+              <h3>Total TokenSupply: 10.000.000  <span>(GRZ)</span> </h3>
+              <p>Team (500.000)</p>
+              <p>Marketing (1.000.000)</p>
+              <p>Development (1.000.000)</p>
+              <p>Reward (1.000.000)</p>
+              <p>Supply (6.500.000)</p>
+            </div>
+
+            <PieChart
+              series={[
+                {
+                  outerRadius: 80,
+                  data: [
+                    { id: 0, value: 5, color: '#48C3FC', label: 'Team 5%' },
+                    { id: 1, value: 10, color: '#01CADC', label: 'Marketing 10%' },
+                    { id: 2, value: 10, color: '#65A6FA', label: 'Development 10%' },
+                    { id: 3, value: 10, color: '#7E80E7', label: 'Reward 10%' },
+                    { id: 4, value: 65, color: '#9B58CC', label: 'Supply 65%' },
+                  ],
+                },
+              ]}
+              width={450}
+              height={200}
             />
-            <button onClick={approveAndStake}>Approve and Stake</button>
+
           </div>
+        }
 
-          <p className='precaution'>Note The amount entered must first be approved to then be able to stake</p>
+        {showStakingInfoGorillaz && account && (
+          <div className='stakingInfoGorillaz'>
+            <h1>GRZ Staking</h1>
+            <div className="reward-info">
+              <input
+                className="inputStakeApprove"
+                type="number"
+                placeholder="Amount"
+                value={approvalAmount}
+                onChange={handleApprovalAmountChange}
+              />
+              <button onClick={approveAndStake}>Approve and Stake</button>
+            </div>
+
+            <p className='precaution'>Note The amount entered must first be approved to then be able to stake</p>
 
 
-          <div className="reward-info">
-            <p> Account</p>
-            <p> {truncatedAddress} </p>
+            <div className="reward-info">
+              <p> Account</p>
+              <p> {truncatedAddress} </p>
+            </div>
+
+            <div className="reward-info">
+              <p>Your Gorillaz Balance </p>
+              <p>{accountBalance}</p>
+            </div>
+
+            <div className="reward-info">
+              <p>Tokens in staking  </p>
+              <p>{stakedAmount} </p>
+            </div>
+
+            <div className="reward-info">
+              <p>TotalSupply  </p>
+              <p>{totalSupply} </p>
+            </div>
+
+            <div className="reward-info">
+              <p>Apy  </p>
+              <p>{apy}% </p>
+            </div>
+
+            <p className='precaution'>Note: You must wait 10 days once the stake has been made to be able to withdraw your amount + amount with the reward, otherwise you can withdraw but the initial amount you deposited will be returned without any type of reward.</p>
+
           </div>
-
-          <div className="reward-info">
-            <p>Your Gorillaz Balance </p>
-            <p>{accountBalance}</p>
-          </div>
-
-          <div className="reward-info">
-            <p>Tokens in staking  </p>
-            <p>{stakedAmount} </p>
-          </div>
-
-          <div className="reward-info">
-            <p>TotalSupply  </p>
-            <p>{totalSupply} </p>
-          </div>
-
-          <div className="reward-info">
-            <p>Apy  </p>
-            <p>{apy}% </p>
-          </div>
-
-          <p className='precaution'>Note: You must wait 10 days once the stake has been made to be able to withdraw your amount + amount with the reward, otherwise you can withdraw but the initial amount you deposited will be returned without any type of reward.</p>
-
-        </div>
-      )}
+        )}
 
 
         {showStakingInfoSegundoToken && account && (

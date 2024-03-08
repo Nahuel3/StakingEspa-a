@@ -3,7 +3,7 @@
   margin: 0%;
 }
 
-h1{
+h1 {
   color: white;
 }
 
@@ -51,7 +51,7 @@ nav button {
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 8px;
- 
+
 }
 
 
@@ -61,25 +61,87 @@ nav button:hover {
 }
 
 
-main{
+.blue-rectanglesPadre {
+  display: flex;
+  flex-wrap: wrap;
+  /* Permite que los elementos se envuelvan cuando no haya espacio */
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  align-items: center;
+  /* Centra verticalmente los rectángulos */
+
+}
+
+.blue-rectangle {
+  background-color: #97477E;
+  color: #fff;
+  padding: 20px;
+  /* Ajusta el padding vertical */
+  border-radius: 10px;
+  width: 15%;
+  min-width: 250px;
+  /* Establece un ancho mínimo para evitar que se hagan demasiado pequeños */
+  margin: 10px;
+  /* Añade margen entre los rectángulos */
+  height: 400px;
+  /* Establece la altura fija para todos los rectángulos */
+  border: solid 2px white;
+  text-align: center;
+
+
+  /* Estilos para imágenes pequeñas */
+  .imagen-pequeña {
+    max-width: 140px;
+    /* Ancho máximo deseado */
+    max-height: 140px;
+    /* Altura máxima deseada */
+    border-radius: 50%;
+  }
+}
+
+.blue-rectangle h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #fff;
+  /* Asegúrate de que el color del texto sea visible en los rectángulos */
+}
+
+.contenedorRoadmapText{
+  /* Asegúrate de que el color del texto sea visible en los rectángulos */
+  border: solid 2px white;
+  padding: 25px;
+}
+
+.blue-rectangle p {
+  font-size: 15px;
+  color: #fff;
+  margin-bottom: 5px;
+
+}
+
+
+
+
+main {
   width: 100%;
   min-height: calc(100vh - 100px);
   display: flex;
   align-items: center;
   justify-content: center;
 
-  img{
+  img {
     height: 100%;
     width: 100%;
     max-width: 1000px;
-    padding-bottom: 50px;   
+    padding-bottom: 50px;
   }
 }
 
-.tokenomics{
+.tokenomics {
   border-radius: 10px;
   height: 100%;
-  width: 60%; 
+  width: 60%;
   max-width: 635px;
   background-color: #150227;
   opacity: 0.9;
@@ -91,14 +153,14 @@ main{
   margin-top: 80px;
   margin-bottom: 30px;
 
-  .tokenomics-text{
+  .tokenomics-text {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
   }
 
-  h2{
+  h2 {
     font-size: 30px;
     color: white;
     text-transform: uppercase;
@@ -106,11 +168,11 @@ main{
     text-align: center;
   }
 
-  span{
+  span {
     color: #65A6FA;
   }
 
-  h3{
+  h3 {
     margin-bottom: 10px;
     font-size: 28px;
     color: white;
@@ -121,12 +183,13 @@ main{
     text-align: center;
   }
 
-  p{
+  p {
     font-size: 18px;
     color: white;
   }
 
-  text, tspan{
+  text,
+  tspan {
     color: white !important;
     fill: white !important;
   }
@@ -142,16 +205,16 @@ main{
   padding: 20px;
   border-radius: 10px;
   height: 100%;
-  width: 60%; 
+  width: 60%;
   max-width: 635px;
   color: white;
   margin-top: 15px;
   margin-bottom: 30px;
-  
-  .precaution{
+
+  .precaution {
     color: gray;
     margin-top: 10px;
-    
+
   }
 
   .reward-info {
@@ -160,49 +223,51 @@ main{
     margin-top: 15px;
     width: 100%;
 
-  
-}
-    p:first-child {
-      margin-right: auto; // Este margen empujará el primer párrafo al extremo izquierdo
-    }
 
-    p:last-child {
-      margin-left: auto; // Este margen empujará el último párrafo al extremo derecho
-    }
+  }
 
-    button:first-child {
-      margin-right: auto; // Este margen empujará el primer párrafo al extremo izquierdo
-    }
+  p:first-child {
+    margin-right: auto; // Este margen empujará el primer párrafo al extremo izquierdo
+  }
 
-    button:last-child {
-      margin-left: auto; // Este margen empujará el último párrafo al extremo derecho
-      background: linear-gradient(to bottom, #290b35, #490589);
-    }
+  p:last-child {
+    margin-left: auto; // Este margen empujará el último párrafo al extremo derecho
+  }
 
-    .inputStakeApprove {
-      padding: 10px 10px;
-      width: 90%;
-      max-width: 400px;
-      min-width: 200px;
-      border: 1px solid #ccc; // Añade un borde para mejorar la apariencia
-      border-radius: 5px; // Redondea las esquinas
-      font-size: 16px; // Ajusta el tamaño de la fuente
-      outline: none; // Elimina el borde alrededor del input al enfoca
-      background-color: #b0b0b074;
-      color: white;
-      
-      
-    }
-    
-    // Estilos adicionales si deseas resaltar el input al enfocarlo
-    .inputStakeApprove:focus {
-      border-color: #007bff; // Cambia el color del borde al enfocar
-      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); // Agrega una sombra al enfocar
-    }
-    .inputStakeApprove::placeholder{
-      color: white;
-    }
-    
+  button:first-child {
+    margin-right: auto; // Este margen empujará el primer párrafo al extremo izquierdo
+  }
+
+  button:last-child {
+    margin-left: auto; // Este margen empujará el último párrafo al extremo derecho
+    background: linear-gradient(to bottom, #290b35, #490589);
+  }
+
+  .inputStakeApprove {
+    padding: 10px 10px;
+    width: 90%;
+    max-width: 400px;
+    min-width: 200px;
+    border: 1px solid #ccc; // Añade un borde para mejorar la apariencia
+    border-radius: 5px; // Redondea las esquinas
+    font-size: 16px; // Ajusta el tamaño de la fuente
+    outline: none; // Elimina el borde alrededor del input al enfoca
+    background-color: #b0b0b074;
+    color: white;
+
+
+  }
+
+  // Estilos adicionales si deseas resaltar el input al enfocarlo
+  .inputStakeApprove:focus {
+    border-color: #007bff; // Cambia el color del borde al enfocar
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); // Agrega una sombra al enfocar
+  }
+
+  .inputStakeApprove::placeholder {
+    color: white;
+  }
+
 
   button {
     background-color: #b0b0b074;
@@ -218,82 +283,91 @@ main{
     border-radius: 4px;
     width: 100%;
     max-width: 150px;
-   }
+  }
+}
+
+@media (max-width:600px) {
+  .reward-info {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
-  @media (max-width:600px) {
-    .reward-info{
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .reward-info button:last-child{ 
-      margin: 0;
-      margin-top: 15px;
-    }
-
+  .reward-info button:last-child {
+    margin: 0;
+    margin-top: 15px;
   }
 
-  button:last-child:hover{
-    transition: 0.1s ease-in-out;
-    background-color: #1c0031;
+}
+
+button:last-child:hover {
+  transition: 0.1s ease-in-out;
+  background-color: #1c0031;
+}
+
+@media (max-width:430px) {
+  .stakingInfoGorillaz {
+    margin-top: 20px;
   }
 
-  @media (max-width:430px) {
-    .stakingInfoGorillaz{
-      margin-top: 20px;
-    }
-    nav button{
-      padding: 10px 10px;
-      
-    }
+  nav button {
+    padding: 10px 10px;
+
   }
+}
 
-     
 
-  @media (max-width:550px) {
-   .css-1ct1ojt-MuiResponsiveChart-container{
+
+@media (max-width:550px) {
+  .css-1ct1ojt-MuiResponsiveChart-container {
     width: 350px !important;
-   }
-    main .tokenomics svg{    
-      width: 350px !important;
-      height: 200px !important;  
-      overflow: hidden;
   }
 
-  .css-15x5qbl{
+  main .tokenomics svg {
     width: 350px !important;
-   }
+    height: 200px !important;
+    overflow: hidden;
+  }
+
+  .css-15x5qbl {
+    width: 350px !important;
+  }
+
+  .blue-rectanglesPadre {
+    margin-top: 80px !important;
+  }
 
 }
 
 @media (max-width:390px) {
-   .css-1ct1ojt-MuiResponsiveChart-container{
+  .css-1ct1ojt-MuiResponsiveChart-container {
     width: 300px !important;
-   }
-    main .tokenomics svg{    
-      width: 300px !important;
-      height: 200px !important;  
-      overflow: hidden;
   }
 
-  .css-15x5qbl{
+  main .tokenomics svg {
     width: 300px !important;
-   }
-    main .tokenomics svg{    
-      width: 300px !important;
-      height: 200px !important;  
-      overflow: hidden;
+    height: 200px !important;
+    overflow: hidden;
+  }
+
+  .css-15x5qbl {
+    width: 300px !important;
+  }
+
+  main .tokenomics svg {
+    width: 300px !important;
+    height: 200px !important;
+    overflow: hidden;
   }
 }
 
-  @media (max-width:360px) {
-    .stakingInfoGorillaz{
-      margin-top: 30px;
-    }
-    nav button{
-      padding: 5px 10px;
-      
-    }
+@media (max-width:360px) {
+  .stakingInfoGorillaz {
+    margin-top: 30px;
   }
 
+  nav button {
+    padding: 5px 10px;
+
+  }
+}
