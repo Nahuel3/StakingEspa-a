@@ -467,6 +467,7 @@ function App() {
               <p>Development (1.000.000)</p>
               <p>Reward (1.000.000)</p>
               <p>Supply (6.500.000)</p>
+              <p>Tax Fee 4% on transactions</p>
             </div>
 
             <PieChart
